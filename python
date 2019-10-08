@@ -1,0 +1,27 @@
+import urllib.request
+import re
+
+
+def fetch_pictures(url, reg):
+    header = {"User-Agent": "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0"}
+    rep = urllib.request.Request(url, headers=header)
+    http_handler = urllib.request.HTTPHandler()
+    opener = urllib.request.build_opener(http_handler)
+    res = opener.open(rep).read().decode('utf-8')
+    rem = re.compile(reg)
+    img_list = rem.findall(res)
+    for i in range(len(img_list)):
+        filename = ('D:/img/%s.jpg' % i)
+        try:
+            urllib.request.urlretrieve(img_list[i], filename)
+            print(" Download " + img_list[i])
+        except:
+            print("No Download " + img_list[i])
+    print(len(img_list))
+
+
+if __name__ == '__main__':
+    url = r"http://699pic.com/tupian/baidu.html"
+    reg = r'data-original="(.+?\.jpg)"'
+    fetch_pictures(url, reg)
+
