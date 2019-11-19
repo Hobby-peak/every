@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.css" />
+		<script src="js/jquery-3.4.1.js"></script>
+		<style>
+			html,
+			body {
+				margin: 0;
+				padding: 0;
+				background-color: #F9F9F9;
+			}
+			
+			.content {
+				background-color: #FFFFFF;
+				width: 800px;
+				margin: auto;
+				margin-top: 180px;
+				padding-bottom: 80px;
+			}
+			
+			.from {
+				width: 320px;
+				margin: auto;
+				color: #333333;
+				font-size: 14px;
+			}
+			
+			.logo {
+				text-align: center;
+			}
+			
+			.from-title {
+				text-align: center;
+				font-size: 30px;
+			}
+			
+			.from-item {
+				margin-top: 20px;
+			}
+			
+			.from-lable {
+				margin-bottom: 5px;
+			}
+			
+			.input-msg {
+				margin-top: 5px;
+				color: #666666;
+			}
+			
+			.input-block {
+				border: #E8E8E8 solid 1px;
+				height: 40px;
+				line-height: 40px;
+			}
+			
+			.input-block>input {
+				outline: none;
+				border: none;
+				text-indent: 15px;
+				box-sizing: border-box;
+				vertical-align: top;
+			}
+			.input-block1{
+				cursor: pointer;
+				position: relative;
+				
+			}
+			
+			.input-block1>input {
+				width: 270px;
+				border-right: #E8E8E8 solid 1px;
+				height: 40px;
+				line-height: 40px;
+				user-select:none ;
+				cursor: pointer;
+				
+			}
+			
+			.input-block1>span {
+				height: 40px;
+				width: 42px;
+				color: #666666;
+				vertical-align: top;
+				text-align: center;
+				line-height: 40px;
+			}
+			
+			.input-block2>span {
+				display: inline-block;
+				width: 60px;
+				text-align: center;
+			}
+			
+			.input-block2>input {
+				border-left: #E8E8E8 solid 1px;
+				height: 40px;
+				line-height: 40px;
+			}
+			
+			.from-test-msg {
+				color: #FF6F3D;
+				font-size: 16px;
+				margin: 12px 0px 12px 0px;
+				min-height: 10px;
+			}
+			
+			.from-btn-block {
+				background-color: #FF6700;
+				text-align: center;
+				height: 40px;
+				line-height: 40px;
+				color: white;
+				cursor: pointer;
+			}
+			
+			.from-btn-block:hover {
+				background-color: #ff936a;
+			}
+			
+			#select-county{
+				height: 220px;
+				overflow-y: scroll;
+				border: #E8E8E8 solid 1px;
+				background-color: white;
+				position: absolute;
+				top:40px;
+				left: -1px;
+				width: 318px;
+				display: none;
+			}
+			.input-box{
+				text-align: center;
+			}
+			.input-box>input{
+				outline: none;
+				width: 90%;
+				height: 26px;
+				line-height: 26px;
+				margin: 10px 0px 10px 0px ;
+				border: #E8E8E8 solid 1px;
+				text-indent: 10px;
+			}
+			#countyList{
+				margin: 0;
+				padding: 0;
+				list-style: none;
+				
+			}
+			#countyList>li{
+				border-top:#E8E8E8 solid 1px ;
+				text-indent:  20px;
+			}
+			#countyList>li:hover{
+				    background: #eaeaea;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="content">
+			<div class="from">
+				<div class="logo">
+					<img src="img/milogo.png" alt="" />
+				</div>
+				<div class="from-title">
+					注册小米账号
+				</div>
+				<div class="from-item">
+					<div class="from-lable">国家/地区</div>
+					<div class="input-block input-block1" >
+						<input value="中国" id="txtCounty" readonly type="text" onclick="showSelect()" />
+						<span class="fa fa-chevron-circle-down" onclick="showSelect()"></span>
+						<div id="select-county">
+							<div class="input-box">
+								<input type="text">
+							</div>
+							<ul id="countyList">
+								<li>湖北省</li>
+								<li>北京市</li>
+								<li>武汉市</li>
+								<li>上海市</li>
+								<li>美国</li>
+								<li>加拿大</li>
+								<li>保加利亚</li>
+								<li>柬埔寨</li>
+							</ul>
+						</div>
+					</div>
+					<div class="input-msg">成功注册后，国家/地区将不能修改</div>
+				</div>
+				<div class="from-item">
+					<div class="from-lable">手机号码</div>
+					<div class="input-block  input-block2">
+						<span class="fa fa-caret-down">+86 </span>
+						<input id="txtPhone" placeholder="请输入手机号码" type="text" />
+					</div>
+					<div class="input-msg from-test-msg">
+
+					</div>
+				</div>
+				<div class="from-btn-block" onclick="reg()">
+					立即注册
+				</div>
+			</div>
+		</div>
+
+		<script>
+			var countyBoxStata=false;
+			function showSelect() {
+				if(countyBoxStata){
+					$("#select-county").hide();
+					
+				}else{
+					$("#select-county").show();
+					
+				}
+				countyBoxStata=!countyBoxStata;
+				
+			}
+			$(function(){
+				$("#countyList>li").click(function(){
+					var county=$(this).text();
+					$("#txtCounty").val(county);
+					$("#select-county").hide();
+					countyBoxStata=false;
+				})
+				
+			})
+			
+			function reg() {
+				var phone = document.getElementById("txtPhone").value;
+
+				if (phone == null || phone == "") {
+					var html = `<span class="fa fa-exclamation-circle"></span>	请输入手机号码`
+					document.getElementsByClassName("from-test-msg")[0].innerHTML = html;
+					return;
+				}
+
+				var testReg = /^\d{11}$/;
+				if (testReg.test(phone)) {
+					sessionStorage.setItem("phone", phone)
+					window.location.href = "registerAuth.html"
+				} else {
+					var html = `<span class="fa fa-exclamation-circle"></span>	手机号码格式不正确`;
+					document.getElementsByClassName("from-test-msg")[0].innerHTML = html;
+					return;
+				}
+
+			}
+		</script>
+	</body>
+
+</html>
